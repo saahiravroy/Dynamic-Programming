@@ -63,27 +63,20 @@ int lcm (int a, int b) { return (a*b)/gcd(a,b); }
 //order_of_key(x)  -> NO of Element strictly Lesser Than x 
 //THINK MORE CODE LESS ! 
 
-const int N=1e3; 
-vector<vector<int>> dp(N, vector<int> (N));  
-int max_profit(int i, int j, vector<int> &v, int y=1){
+bool check(int index, vector<int> & v, int n){
 
-	if(i>j){
 
-		return 0; 
+	if(index==n){
+
+		return true; 
 	}
 
-	if(dp[i][j]!=-1){
-
-		return dp[i][j]; 
+	if(v[index]<=v[index+1] and check(index+1, v, n)){
+		return true;  
 	}
-	int profit=INT_MIN; 
-	int left=v[i]*y+max_profit(i+1, j, v, y+1);  
-	int right=v[j]*y+max_profit(i, j-1, v, y+1); 
-
-	profit=max(left, right); 
 
 
-	return dp[i][j]=profit; 
+	return false ;
 
 }
 void solve()
@@ -91,11 +84,14 @@ void solve()
 	int n; cin>>n; 
 	vector<int> v(n);  
 	for(int i=0;i<n;i++){
-
 		cin>>v[i]; 
 	}
 
-	cout<<max_profit(0, n, v); 
+	if(check(0,v,n)){
+
+		cout<<"SORTED"<<endl; 
+	}
+	else cout<<"NOT SORTED"<<endl; 
 }
 int32_t main(){
 #ifndef ONLINE_JUDGE

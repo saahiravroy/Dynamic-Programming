@@ -61,41 +61,23 @@ int lcm (int a, int b) { return (a*b)/gcd(a,b); }
 //a^p = a (mod p) p is prime // a^-1 = a^(p-2) (mod p )
 //find_by_order(i) -> Element at ith idx [0 based index]
 //order_of_key(x)  -> NO of Element strictly Lesser Than x 
-//THINK MORE CODE LESS ! 
+//THINK MORE CODE LESS !
 
-const int N=1e3; 
-vector<vector<int>> dp(N, vector<int> (N));  
-int max_profit(int i, int j, vector<int> &v, int y=1){
+void print(int index, int n){
 
-	if(i>j){
 
-		return 0; 
+	if(index==n){
+
+		cout<<n<<" "; 
+		return ; 
 	}
-
-	if(dp[i][j]!=-1){
-
-		return dp[i][j]; 
-	}
-	int profit=INT_MIN; 
-	int left=v[i]*y+max_profit(i+1, j, v, y+1);  
-	int right=v[j]*y+max_profit(i, j-1, v, y+1); 
-
-	profit=max(left, right); 
-
-
-	return dp[i][j]=profit; 
-
-}
+	cout<<index<<" "; 
+	print(index+1, n); 
+} 
 void solve()
 {
 	int n; cin>>n; 
-	vector<int> v(n);  
-	for(int i=0;i<n;i++){
-
-		cin>>v[i]; 
-	}
-
-	cout<<max_profit(0, n, v); 
+	print(1, n);  
 }
 int32_t main(){
 #ifndef ONLINE_JUDGE
